@@ -5,19 +5,21 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
     "Accept": "application/json",
-  }
+  },
 });
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("santeprox_token");
+    const token = localStorage.getItem("token");
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
-  (erreur) => {
-    return Promise.reject(erreur);
+  (error) => {
+    return Promise.reject(error);
   }
 );
 
